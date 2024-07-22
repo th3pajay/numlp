@@ -14,10 +14,10 @@ Would you like to predict **ANY** column value based on this?
 |--|--|--|--|
 |12|08|?|08|
 
-This application provides an accesible, easy to understand and click-through interface to make that happen.
+This application provides an accessible, easy to understand and click-through interface to make that happen.
 
 > If you'd like to tinker around with some advanced Neural Network model
-> attributes, such as epoch, hidden layers increased for more precision?
+> attributes, such as epochs or hidden layers, increase precision..
 
 You can!
 
