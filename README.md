@@ -1,4 +1,4 @@
-# numpl
+# numlp
 Numerical ML NN Prediction application
 
 Do you have an excel file with labeled numerical data?
