@@ -9,7 +9,7 @@ Do you have an excel file with labeled numerical data?
 |--|--|--|--|
 |10|21|18|19|
 
-Would you like to predict **ANY** column value based on this?
+Would you like to predict **ANY** column value based on this trained input data?
 |MONTH|DAY|AVGTEMP|MAXTEMP|
 |--|--|--|--|
 |12|08|?|08|
