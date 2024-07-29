@@ -175,8 +175,17 @@ def main():
         # Slider for epochs
         epochs = st.slider("🏋️‍♂️ Select number of epochs", min_value=100, max_value=1000, value=100, step=1)
 
+        # Activation references
+        activation_function_links = {
+            "Leaky ReLU": "https://en.wikipedia.org/wiki/Rectifier_(neural_networks)",
+            "Swish": "https://en.wikipedia.org/wiki/Swish_function",
+            "GELU": "https://en.wikipedia.org/wiki/Activation_function"
+        }
+
         # Select activation function
-        activation_function = st.selectbox("🔧 Select activation function", ["Leaky ReLU", "Swish", "GELU"])
+        activation_function = st.selectbox("🔧 Select activation function", list(activation_function_links.keys()))
+        st.write(
+            f"Read about {activation_function}: [Here]({activation_function_links[activation_function]})")
 
         # Update model
         st.session_state['model_info'] = {
