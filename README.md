@@ -52,11 +52,11 @@ No problem.
 7. Specify new input value and predict a new output value
 
 
-## Plugins
+## Cloud
 
 numlp will be linked to Google Cloud to provide an *out-of-the-box*, free service.
 
-| Plugin | README |
+| Service | URL |
 | ------ | ------ |
 | Google Cloud | [TBD][gcloud] |
 
