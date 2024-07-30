@@ -3,6 +3,7 @@
 
 [![N|Solid](https://pypi.org/static/images/logo-small.8998e9d1.svg)](https://www.python.org/)
 
+[![Generic badge](https://img.shields.io/badge/version-v1.0.4-<>.svg)](https://shields.io/)
 [![PyPI license](https://img.shields.io/pypi/l/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/)
 ## Introduction
 Do you have an excel file with labeled, numerical data?
@@ -81,7 +82,7 @@ or alternatively:
 ```sh
 python -m streamlit run app.py
 ```
-Will automatically open webpage with default steramlit port: 8501
+Will automatically open webpage with default streamlit port: 8501
 
 
 ## License
@@ -89,8 +90,6 @@ Will automatically open webpage with default steramlit port: 8501
 MIT
 
 **Free Software, Hell Yeah!**
-
-[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
    [streamlitgui]: <https://streamlit.io/>
    [gcloud]: <UPDATE>
