@@ -3,7 +3,7 @@
 
 [![N|Solid](https://pypi.org/static/images/logo-small.8998e9d1.svg)](https://www.python.org/)
 
-[![Build Status](https://github.com/th3pajay/numlp?branch=main)](https://github.com/th3pajay/numlp)
+[![PyPI license](https://img.shields.io/pypi/l/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/)
 ## Introduction
 Do you have an excel file with labeled, numerical data?
 |MONTH|DAY|AVGTEMP|MAXTEMP|
