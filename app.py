@@ -1,4 +1,5 @@
 import datetime
+import os
 
 import numpy as np
 import pandas as pd
@@ -38,6 +39,10 @@ class DynamicNN(nn.Module):
             return nn.GELU()
         elif self.activation_function == "Leaky ReLU":
             return nn.LeakyReLU()
+        elif self.activation_function == "ELU":
+            return nn.ELU()
+        elif self.activation_function == "SELU":
+            return nn.SELU()
         else:
             raise ValueError("Invalid activation function selected")
 
@@ -51,12 +56,20 @@ class DynamicNN(nn.Module):
         return self.model(x)
 
 
+def remove_old_models():
+    for model_file in os.listdir("models"):
+        os.remove(os.path.join("models", model_file))
+
+
 # Train NN
 def train_model(model, train_loader, criterion, optimizer, epochs=100):
     model.train()
     losses = []
     progress_bar = st.progress(0)
     scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=30, gamma=0.1)
+
+    remove_old_models()
+
     for epoch in range(epochs):
         epoch_loss = 0.0
         for inputs, targets in train_loader:
@@ -179,7 +192,9 @@ def main():
         activation_function_links = {
             "Leaky ReLU": "https://en.wikipedia.org/wiki/Rectifier_(neural_networks)",
             "Swish": "https://en.wikipedia.org/wiki/Swish_function",
-            "GELU": "https://en.wikipedia.org/wiki/Activation_function"
+            "GELU": "https://en.wikipedia.org/wiki/Activation_function",
+            "ELU": "https://en.wikipedia.org/wiki/Rectifier_(neural_networks)#ELU",
+            "SELU": "https://en.wikipedia.org/wiki/Activation_function"
         }
 
         # Select activation function
@@ -232,7 +247,7 @@ def main():
             # Save model
             prefix = output_header[:10].upper()
             current_time = datetime.datetime.now().strftime("%Y%m%d%H%M")
-            model_filename = f"{prefix}_{current_time}.pt"
+            model_filename = f"models/{prefix}_{current_time}.pt"
 
             torch.save(model.state_dict(), model_filename)
 
