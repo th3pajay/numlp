@@ -20,14 +20,11 @@ class DynamicNN(nn.Module):
         self.activation_function = activation_function
         self.model = self._initialize_model(input_dim, hidden_layers)
 
-    def _initialize_model(self, input_dim, hidden_layers):
-        layers = []
-        current_dim = input_dim
-        for _ in range(hidden_layers):
-            layers.append(nn.Linear(current_dim, 128))
-            layers.append(self._get_activation_function())
-            current_dim = 128
-        layers.append(nn.Linear(current_dim, 1))
+    def _initialize_model(self, input_dim, hidden_layers, num_neurons=128):
+        activation_function = self._get_activation_function()
+        layers = [layer for i in range(hidden_layers) for layer in
+                  (nn.Linear(input_dim if i == 0 else num_neurons, num_neurons), activation_function)]
+        layers.append(nn.Linear(num_neurons, 1))
         model = nn.Sequential(*layers)
         self._init_weights(model)
         return model
@@ -184,6 +181,10 @@ def main():
 
         # Slider for hidden layers
         hidden_layers = st.slider("📚 Select number of hidden layers", min_value=3, max_value=10, value=3, step=1)
+
+        # Slider for neurons
+        num_neurons = st.slider("🧠 Select number of neurons per hidden layer", min_value=32, max_value=512, value=128,
+                                step=32)
 
         # Slider for epochs
         epochs = st.slider("🏋️‍♂️ Select number of epochs", min_value=100, max_value=1000, value=100, step=1)
