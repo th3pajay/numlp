@@ -53,6 +53,32 @@ class DynamicNN(nn.Module):
         return self.model(x)
 
 
+# Define optimizer, fine grade training
+def select_optimizer(model):
+    optimizer_name = st.selectbox(
+        "🛠️ Select optimizer",
+        ["Adam", "Adagrad", "RMSprop", "AdamW", "Adamax"]
+    )
+
+    lr = st.number_input("Learning Rate", value=0.001, format="%f")
+
+    if optimizer_name == "Adam":
+        optimizer = optim.Adam(model.parameters(), lr=lr)
+    elif optimizer_name == "Adagrad":
+        optimizer = optim.Adagrad(model.parameters(), lr=lr)
+    elif optimizer_name == "RMSprop":
+        alpha = st.number_input("RMSprop Alpha", value=0.99, format="%f")
+        optimizer = optim.RMSprop(model.parameters(), lr=lr, alpha=alpha)
+    elif optimizer_name == "AdamW":
+        weight_decay = st.number_input("AdamW Weight Decay", value=1e-2, format="%e")
+        optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
+    elif optimizer_name == "Adamax":
+        optimizer = optim.Adamax(model.parameters(), lr=lr)
+
+    return optimizer
+
+
+# Remove obsolete model files
 def remove_old_models():
     for model_file in os.listdir("models"):
         os.remove(os.path.join("models", model_file))
@@ -137,12 +163,25 @@ def handle_errors(func):
 # Streamlit frontend
 st.set_page_config(page_title="NUMLP", layout="wide")
 st.title("NUMLP")
+st.header("Numeric Multi-Layer Perceptron predictor")
 
 # Sidebar
 if 'model_info' not in st.session_state:
     st.session_state['model_info'] = {}
 
 with st.sidebar:
+    # Excel representation
+    uploaded_file = st.file_uploader("Upload an Excel file", type=["xlsx"])
+
+    if uploaded_file:
+        df = pd.read_excel(uploaded_file)
+        st.write("Data Summary:")
+        st.write(f"**Row number:** {df.shape[0]}")
+        st.write(f"**Column number:** {df.shape[1]}")
+        st.write(f"**Column Names:** {', '.join(df.columns)}")
+        st.write("**First rows:**")
+        st.dataframe(df.head())
+
     st.header("Model Information")
     if 'model_info' in st.session_state:
         info = st.session_state['model_info']
@@ -153,11 +192,9 @@ with st.sidebar:
             st.write(f"**Batch Size:** {info.get('batch_size', 'N/A')}")
             st.write(f"**Total Parameters:** {info.get('total_parameters', 'N/A')}")
             st.write(f"**Activation Function:** {info.get('activation_function', 'N/A')}")
+            st.write(f"**Optimizer:** {info.get('optimizer_name', 'N/A')}")
         else:
             st.write("No model information available.")
-
-# Upload excel file with numerical content
-uploaded_file = st.file_uploader("Upload an Excel file", type=["xlsx"])
 
 
 @handle_errors
@@ -179,47 +216,41 @@ def main():
         train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
         test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
 
-        # Slider for hidden layers
-        hidden_layers = st.slider("📚 Select number of hidden layers", min_value=3, max_value=10, value=3, step=1)
+        # Advanced options
+        with st.expander("🛠️ Advanced options"):
+            hidden_layers = st.slider("📚 Select number of hidden layers", min_value=3, max_value=10, value=3, step=1)
+            num_neurons = st.slider("🧠 Select number of neurons per hidden layer", min_value=32, max_value=512,
+                                    value=128, step=32)
+            epochs = st.slider("🏋️‍♂️ Select number of epochs", min_value=100, max_value=1000, value=100, step=1)
 
-        # Slider for neurons
-        num_neurons = st.slider("🧠 Select number of neurons per hidden layer", min_value=32, max_value=512, value=128,
-                                step=32)
+            activation_function_links = {
+                "Leaky ReLU": "https://en.wikipedia.org/wiki/Rectifier_(neural_networks)",
+                "Swish": "https://en.wikipedia.org/wiki/Swish_function",
+                "GELU": "https://en.wikipedia.org/wiki/Activation_function",
+                "ELU": "https://en.wikipedia.org/wiki/Rectifier_(neural_networks)#ELU",
+                "SELU": "https://en.wikipedia.org/wiki/Activation_function"
+            }
+            activation_function = st.selectbox("🔧 Select activation function", list(activation_function_links.keys()))
+            st.write(f"Read about {activation_function}: [Here]({activation_function_links[activation_function]})")
 
-        # Slider for epochs
-        epochs = st.slider("🏋️‍♂️ Select number of epochs", min_value=100, max_value=1000, value=100, step=1)
+            # Define model here with user-selected options
+            model = DynamicNN(input_dim=len(input_headers), hidden_layers=hidden_layers,
+                              activation_function=activation_function)
+            optimizer = select_optimizer(model)
 
-        # Activation references
-        activation_function_links = {
-            "Leaky ReLU": "https://en.wikipedia.org/wiki/Rectifier_(neural_networks)",
-            "Swish": "https://en.wikipedia.org/wiki/Swish_function",
-            "GELU": "https://en.wikipedia.org/wiki/Activation_function",
-            "ELU": "https://en.wikipedia.org/wiki/Rectifier_(neural_networks)#ELU",
-            "SELU": "https://en.wikipedia.org/wiki/Activation_function"
-        }
-
-        # Select activation function
-        activation_function = st.selectbox("🔧 Select activation function", list(activation_function_links.keys()))
-        st.write(
-            f"Read about {activation_function}: [Here]({activation_function_links[activation_function]})")
-
-        # Update model
+        # Update session state
         st.session_state['model_info'] = {
             'hidden_layers': hidden_layers,
             'epochs': epochs,
-            'learning_rate': 0.001,
+            'learning_rate': 0.001,  # This can be updated based on your needs
             'batch_size': 32,
             'activation_function': activation_function,
-            'total_parameters': sum(
-                p.numel() for p in DynamicNN(input_dim=len(input_headers), hidden_layers=hidden_layers,
-                                             activation_function=activation_function).parameters()),
-            'epochs_trained': 0
+            'total_parameters': sum(p.numel() for p in model.parameters()),
+            'epochs_trained': 0,
+            'optimizer_name': optimizer
         }
 
-        model = DynamicNN(input_dim=len(input_headers), hidden_layers=hidden_layers,
-                          activation_function=activation_function)
         criterion = nn.MSELoss()
-        optimizer = optim.Adam(model.parameters(), lr=0.001)
 
         if st.button("Train the model"):
             st.write(
@@ -276,11 +307,19 @@ def main():
         input_headers = st.session_state['input_headers']
 
         st.write("Input values for prediction:")
+
+        # Initialize the input_values in session_state
+        if 'input_values' not in st.session_state:
+            st.session_state['input_values'] = {header: 0.0 for header in input_headers}
+
         input_values = []
         for header in input_headers:
-            value = st.number_input(f"Value for {header}", key=header, value=0.0)
+            # Use session_state
+            value = st.number_input(f"Value for {header}", key=header, value=st.session_state['input_values'][header])
+            st.session_state['input_values'][header] = value
             input_values.append(value)
 
+        # Predict based on input_headers
         if st.button("Predict"):
             model.eval()
             with torch.no_grad():
@@ -293,7 +332,7 @@ def main():
 st.sidebar.markdown("""
     ---
     Created by [th3pajay](https://github.com/th3pajay) 
-    ![Streamlit User](https://img.icons8.com/ios/50/000000/streamlit.png)
+    ![UserGIF](https://user-images.githubusercontent.com/74038190/219925470-37670a3b-c3e2-4af7-b468-673c6dd99d16.png)
 """)
 
 main()

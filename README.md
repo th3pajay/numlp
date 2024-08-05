@@ -3,7 +3,7 @@
 
 [![N|Solid](https://pypi.org/static/images/logo-small.8998e9d1.svg)](https://www.python.org/)
 
-[![Generic badge](https://img.shields.io/badge/version-v1.0.4-<>.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/version-v1.0.8-<>.svg)](https://shields.io/)
 [![PyPI license](https://img.shields.io/pypi/l/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/)
 ## Introduction
 Do you have an excel file with labeled, numerical data?
@@ -38,7 +38,7 @@ No problem.
 
 - The neural network model offers selectable activation, hidden layer and train loop count (epoch) on numerical data inputs from xlsx file format
 - User interaction via [streamlit][streamlitgui] GUI
-- By default uses ReLU activation function, 3 hidden layers and 100 epochs to train and make a baseline comparison on trained (70%), with test data (30%_true) against predicted test data (30%_pred)
+- By default uses Leaky ReLU activation function, 3 hidden layers and 100 epochs to train and make a baseline comparison on trained (70%), with test data (30%_true) against predicted test data (30%_pred)
 - Model -on data set load- automatically derives the <row1> labels, on which the user can range specify the N:1 relation of input (x1, x2, x3..) and output value (y1)
 - Model parameter selection is fixed for session, until data set or page is re-loaded
 - Training establishes correlation between input values and with activation and weights shifted feeds forward towards precision metrics at the end of epoch run
