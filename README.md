@@ -3,7 +3,7 @@
 
 [![N|Solid](https://pypi.org/static/images/logo-small.8998e9d1.svg)](https://www.python.org/)
 
-[![Generic badge](https://img.shields.io/badge/version-v1.0.10-<>.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/version-v1.0.11-<>.svg)](https://shields.io/)
 [![PyPI license](https://img.shields.io/pypi/l/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/)
 ## Introduction
 Do you have an excel file with header labeled, otherwise numerical data?
@@ -96,7 +96,7 @@ MIT
 **Free Software, Hell Yeah!**
 
    [streamlitgui]: <https://streamlit.io/>
-   [gcloud]: <numlpgui.streamlit.app>
+   [gcloud]: <https://numlpgui.streamlit.app/>
    [numpyver]: <https://numpy.org/devdocs/release/1.26.4-notes.html>
 
 

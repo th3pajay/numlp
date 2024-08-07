@@ -165,6 +165,10 @@ def handle_errors(func):
 st.set_page_config(page_title="NUMLP", layout="wide")
 st.title("NUMLP")
 st.header("Numeric Multi-Layer Perceptron predictor")
+with st.expander("Project Description"):
+    st.markdown("""
+numlp is an Neural Network fueled predictor. Uses uploaded excel, labeled header + numeric content to predict selected output value.
+""")
 
 # Sidebar
 if 'model_info' not in st.session_state:
