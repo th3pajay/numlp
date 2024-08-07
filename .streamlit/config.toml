@@ -6,3 +6,6 @@ primaryColor="#f63366"
 backgroundColor="#0e1117"
 secondaryBackgroundColor="#262730"
 textColor="#ffffff"
+
+[server]
+enableXsrfProtection = false
