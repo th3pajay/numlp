@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b5280c12-11d0-4742-a6fd-487ec29d1de1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.streamlit/config.toml" beforeDir="false" afterPath="$PROJECT_DIR$/.streamlit/config.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +159,31 @@
       <option name="project" value="LOCAL" />
       <updated>1723017341473</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="requirements.txt and config.toml updates">
+      <option name="closed" value="true" />
+      <created>1723019652453</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1723019652453</updated>
+    </task>
+    <task id="LOCAL-00007" summary="requirements.txt updates">
+      <option name="closed" value="true" />
+      <created>1723020231579</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1723020231579</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Adding dummy .pt file under /models and catch if /models is unavailable">
+      <option name="closed" value="true" />
+      <created>1723020497029</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1723020497029</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -169,6 +193,9 @@
     <MESSAGE value="Optimized model initialization, added dynamic neuron selection slider, updated README" />
     <MESSAGE value="Moved file upload to sidebar, added optimizer selection, moved fine-tuning options to &quot;Advanced Options&quot;, Post-upload excel analysis and df.head(), stronger session state for final prediction inputs (no jump-out)" />
     <MESSAGE value="Sidebar markdowns, dark theme added, README updated, GUI available on Streamlit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sidebar markdowns, dark theme added, README updated, GUI available on Streamlit" />
+    <MESSAGE value="requirements.txt and config.toml updates" />
+    <MESSAGE value="requirements.txt updates" />
+    <MESSAGE value="Adding dummy .pt file under /models and catch if /models is unavailable" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding dummy .pt file under /models and catch if /models is unavailable" />
   </component>
 </project>
