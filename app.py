@@ -80,8 +80,9 @@ def select_optimizer(model):
 
 # Remove obsolete model files
 def remove_old_models():
-    for model_file in os.listdir("models"):
-        os.remove(os.path.join("models", model_file))
+    if os.path.exists('models'):
+        for model_file in os.listdir("models"):
+            os.remove(os.path.join("models", model_file))
 
 
 # Train NN
