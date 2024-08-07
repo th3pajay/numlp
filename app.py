@@ -175,12 +175,15 @@ with st.sidebar:
 
     if uploaded_file:
         df = pd.read_excel(uploaded_file)
+        st.sidebar.markdown("---")
         st.write("Data Summary:")
         st.write(f"**Row number:** {df.shape[0]}")
         st.write(f"**Column number:** {df.shape[1]}")
         st.write(f"**Column Names:** {', '.join(df.columns)}")
         st.write("**First rows:**")
         st.dataframe(df.head())
+
+    st.sidebar.markdown("---")
 
     st.header("Model Information")
     if 'model_info' in st.session_state:
@@ -233,7 +236,7 @@ def main():
             activation_function = st.selectbox("🔧 Select activation function", list(activation_function_links.keys()))
             st.write(f"Read about {activation_function}: [Here]({activation_function_links[activation_function]})")
 
-            # Define model here with user-selected options
+            # Fine tune model
             model = DynamicNN(input_dim=len(input_headers), hidden_layers=hidden_layers,
                               activation_function=activation_function)
             optimizer = select_optimizer(model)
@@ -242,7 +245,7 @@ def main():
         st.session_state['model_info'] = {
             'hidden_layers': hidden_layers,
             'epochs': epochs,
-            'learning_rate': 0.001,  # This can be updated based on your needs
+            'learning_rate': 0.001,
             'batch_size': 32,
             'activation_function': activation_function,
             'total_parameters': sum(p.numel() for p in model.parameters()),
@@ -308,7 +311,7 @@ def main():
 
         st.write("Input values for prediction:")
 
-        # Initialize the input_values in session_state
+        # Initialize input_values in session_state
         if 'input_values' not in st.session_state:
             st.session_state['input_values'] = {header: 0.0 for header in input_headers}
 
