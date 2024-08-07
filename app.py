@@ -167,7 +167,7 @@ st.title("NUMLP")
 st.header("Numeric Multi-Layer Perceptron predictor")
 with st.expander("Project Description"):
     st.markdown("""
-numlp is an Neural Network fueled predictor. Uses uploaded excel, labeled header + numeric content to predict selected output value.
+numlp is a Neural Network fueled predictor. Uses uploaded excel, labeled header + numeric content to predict selected output value.
 """)
 
 # Sidebar
