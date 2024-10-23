@@ -2,6 +2,7 @@ import datetime
 import gzip
 import io
 import os
+import uuid
 
 import numpy as np
 import pandas as pd
@@ -157,7 +158,7 @@ def calculate_metrics(actuals, predictions):
 def handle_errors(func):
     def wrapper(*args, **kwargs):
         try:
-            func(*args, **kwargs)
+            return func(*args, **kwargs)
         except Exception as e:
             st.error("An error occurred. Please try again later.")
             st.write(f"Error details: {str(e)}")
@@ -291,7 +292,7 @@ def main():
             # Save model
             prefix = output_header[:10].upper()
             current_time = datetime.datetime.now().strftime("%Y%m%d%H%M")
-            model_filename = f"models/{prefix}_{current_time}.pt"
+            model_filename = f"models/{prefix}_{current_time}_{str(uuid.uuid4())[:6]}.pt"
 
             torch.save(model.state_dict(), model_filename)
 
