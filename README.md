@@ -3,7 +3,7 @@
 
 [![N|Solid](https://pypi.org/static/images/logo-small.8998e9d1.svg)](https://www.python.org/)
 
-[![Generic badge](https://img.shields.io/badge/version-v1.0.15-<>.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/version-v1.1.00-<>.svg)](https://shields.io/)
 [![PyPI license](https://img.shields.io/pypi/l/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/)
 ## Introduction
 Do you have an excel file with header labeled, otherwise numerical data?
@@ -36,14 +36,15 @@ No problem. Model files can be downloaded in .pt format.
 
 ## Features
 
-- The neural network model offers selectable activation method, optimizer selection, hidden layer and train loop count (epoch) choice, on numerical data inputs from a xlsx file format
-- Uses [streamlit][streamlitgui] GUI for frontend
-- By default uses a simple, pre-set configuration of Leaky ReLU activation function, 3 hidden layers and 100 epochs to train, thich can be fine-tuned further with 'Advanced Options'
-- Model evaulation is based on trained (70%) data, with model predicted values (30%_pred) against real test values (30%_true) 
-- Model -on data set load- automatically derives the <row1> labels, on which the user can range specify the N:1 relation of input (x1, x2, x3..) and output value (y1)
-- Model parameter selection is fixed for session, until data set changed or page is re-loaded
-- Training establishes correlation between input values and with activation and weights shifted and feeds forward towards precision metrics displayed at the end of training
-- Metrics are displayed as visualized graph of predicted test data against true test data values
+- Configurable Neural Network: Customize activation functions, optimizers, hidden layers, and training epochs.
+- User-Friendly Interface: Built with Streamlit for easy interaction.
+- Hardware Agnostic: Automatically uses CPU or GPU.
+- Advanced Tuning: Fine-tune with options like dropout rate and batch size.
+- Data Flexibility: Processes numerical data from XLSX files, automatically mapping inputs to outputs.
+- Robust Evaluation: Model performance assessed on a 30% test set.
+- Uncertainty in Predictions: "Predict Range" uses Monte Carlo Dropout for mean predictions and 95% confidence intervals.
+- Persistent Session: Model parameters maintained until dataset change or reload.
+- Key Performance Metrics: Displays RMSE, MAE, R², and visual graphs of predictions and training loss.
 ## How to use
 1. Prepare an excel (xlsx) file with <row1> labels and <row2,3,...> with only numerical values
 2. Upload data via the GUI sidebar - upload button
