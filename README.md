@@ -3,7 +3,7 @@
 
 [![N|Solid](https://pypi.org/static/images/logo-small.8998e9d1.svg)](https://www.python.org/)
 
-[![Generic badge](https://img.shields.io/badge/version-v1.0.12-<>.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/version-v1.0.15-<>.svg)](https://shields.io/)
 [![PyPI license](https://img.shields.io/pypi/l/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/)
 ## Introduction
 Do you have an excel file with header labeled, otherwise numerical data?
@@ -68,7 +68,7 @@ numlp is available online, check it out!
 ## Installation
 
 numlp uses several python packages and based on [numpy][numpyver] v1.26.4.
-Additional packages are included in the requirements.txt [TBD - have to remove obsolete entries]
+Additional packages are included in the requirements.txt
 
 For local run git clone and step into the cloned repository:
 

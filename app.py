@@ -1,5 +1,8 @@
 import datetime
+import gzip
+import io
 import os
+import uuid
 
 import numpy as np
 import pandas as pd
@@ -82,7 +85,9 @@ def select_optimizer(model):
 def remove_old_models():
     if os.path.exists('models'):
         for model_file in os.listdir("models"):
-            os.remove(os.path.join("models", model_file))
+            file_path = os.path.join("models", model_file)
+            if model_file.endswith(('.pkl', '.zip', '.gz', '.pt')) and os.path.isfile(file_path):
+                os.remove(file_path)
 
 
 # Train NN
@@ -153,7 +158,7 @@ def calculate_metrics(actuals, predictions):
 def handle_errors(func):
     def wrapper(*args, **kwargs):
         try:
-            func(*args, **kwargs)
+            return func(*args, **kwargs)
         except Exception as e:
             st.error("An error occurred. Please try again later.")
             st.write(f"Error details: {str(e)}")
@@ -287,7 +292,7 @@ def main():
             # Save model
             prefix = output_header[:10].upper()
             current_time = datetime.datetime.now().strftime("%Y%m%d%H%M")
-            model_filename = f"models/{prefix}_{current_time}.pt"
+            model_filename = f"models/{prefix}_{current_time}_{str(uuid.uuid4())[:6]}.pt"
 
             torch.save(model.state_dict(), model_filename)
 
@@ -301,13 +306,21 @@ def main():
     # Download model
     if 'model_trained' in st.session_state and st.session_state['model_trained']:
         model_filename = st.session_state['model_filename']
-        with open(model_filename, 'rb') as f:
-            st.download_button(
-                label="Download trained model",
-                data=f,
-                file_name=model_filename,
-                mime="application/octet-stream"
-            )
+
+        # Compress
+        compressed_model = io.BytesIO()
+        with gzip.GzipFile(fileobj=compressed_model, mode='wb') as gf:
+            with open(model_filename, 'rb') as f:
+                gf.write(f.read())
+
+        compressed_model.seek(0)
+
+        st.download_button(
+            label="Download model (compressed)",
+            data=compressed_model,
+            file_name=model_filename,
+            mime="application/gzip"
+        )
 
     # Predict value
     if 'model' in st.session_state:
